@@ -1,0 +1,23 @@
+ul, li {
+	padding:0px;
+	margin:0px;
+}
+
+li {
+	border:1px solid #000;
+	list-style:none;
+	text-align:center;
+	font-size:1em;
+	vertical-align:bottom;
+	height:30px;
+	line-height:30px
+}
+
+#table .ui-btn {
+	margin:0px;
+	line-height:4px;
+}
+
+#table .ui-btn-inner {
+
+}

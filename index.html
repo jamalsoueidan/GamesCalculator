@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="ui-mobile-rendering">
+<head>
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+	<link rel="apple-touch-icon" href="/css/images/touch-icon-iphone.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/css/images/touch-icon-ipad.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/css/images/touch-icon-iphone4.png">
+	
+    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css"/>
+    <link rel="stylesheet" href="css/add2home.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+
+	<script type="text/javascript">
+	var addToHomeConfig = {
+		touchIcon: true,
+	};
+	</script>
+    <script type="text/template" id="games">
+
+		<div data-role="header">
+			<h1>Games</h1>
+		</div>
+		
+		<div data-role="content">	
+			<a href="#lekha" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">lekha</a>
+		</div>
+		<div data-role="footer" data-position="fixed" data-id="footer">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#games" data-icon="home" class="ui-btn-active ui-state-persist">Games</a></li>
+					<li><a href="#players" data-icon="gear">Players</a></li>
+				</ul>
+			</div>
+		</div>
+
+    </script>
+
+    <script type="text/template" id="players">
+
+		<div data-role="header">
+			<h1>Player names</h1>
+		</div>
+		
+		<div data-role="content">	
+			<p>Type four player names and click save</p>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="player1">First player:</label>
+				<input type="text" name="player1" id="player1" placeholder="First player name"/>
+			</div>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="player2">First player:</label>
+				<input type="text" name="player2" id="player2" placeholder="Second layer"/>
+			</div>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="player3">First player:</label>
+				<input type="text" name="player3" id="player3" placeholder="Third Player"/>
+			</div>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="player4">First player:</label>
+				<input type="text" name="player4" id="player4" placeholder="Fourth Player"/>
+			</div>
+			<a href="#" data-role="button" id="save">Save</a>
+		</div>
+		<div data-role="footer" data-position="fixed" data-id="footer">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#games" data-icon="home">Games</a></li>
+					<li><a href="#players" data-icon="gear" class="ui-btn-active ui-state-persist">Players</a></li>
+				</ul>
+			</div>
+		</div>
+
+    </script>
+
+    <script type="text/template" id="lekha">
+
+		<div data-role="header">
+			<a href="#" data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Round</h1>
+			<a href="#" data-role="button" data-rel="popup" id="new">New Game</a>
+		</div>
+		
+		<div data-role="content">
+			<ul class="ui-grid-d" id="table"></ul>
+			<a href="#lekha-round" data-role="button">Round finished</a>
+		</div>
+
+		<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+			<div data-role="header" class="ui-corner-top">
+				<h1>New Game?</h1>
+			</div>
+			<div data-role="content" class="ui-corner-bottom ui-content">
+				<h3 class="ui-title">Are you sure you want to start new game?</h3>
+				<a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">No</a>    
+				<a href="#" id="yes" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>  
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="lekha-round">
+		<div data-role="header">
+			<a href="#" data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Finish round</h1>
+		</div>
+	
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<label for="player1"><%=player1%>:</label>
+				<input type="range" id="player1_slider" value="0" min="0" max="60" data-highlight="true" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="player2"><%=player2%>:</label>
+				<input type="range" id="player2_slider" value="0" min="0" max="60" data-highlight="true" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="player3"><%=player3%>:</label>
+				<input type="range" id="player3_slider" value="0" min="0" max="60" data-highlight="true" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="player4"><%=player4%>:</label>
+				<input type="range" id="player4_slider" value="0" min="0" max="60" data-highlight="true" />
+			</div>
+
+			<a href="#lekha" data-role="button" id="done">Done</a>
+		</div>
+	</script>
+	
+	<script type="text/template" id="row">
+		<li class="ui-block-a"><%= column1 %></li>
+		<li class="ui-block-b"><%= column2 %></li>
+		<li class="ui-block-c"><%= column3 %></li>
+		<li class="ui-block-d"><%= column4 %></li>
+		<li class="ui-block-e"><%= column5 %></li>
+	</script>
+
+    <script src="lib/jquery-1.8.3.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="lib/jquery.mobile-1.2.0.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="lib/backbone-min.js"></script>
+	<script src="js/routers/games_router.js"></script>
+	<script src="js/routers/players_router.js"></script>
+	<script src="js/routers/lekha_router.js"></script>
+	<script src="js/routers/lekha_round_router.js"></script>
+    <script src="js/main.js"></script>
+	<script src="js/add2home.js"></script>
+</head>
+
+<body></body>
+
+</html>
