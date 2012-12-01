@@ -34,7 +34,7 @@ window.LekhaView = Backbone.View.extend({
 		if (Array.isArray(rounds)) {
 			for(var i=0;i<rounds.length;i++) {
 				currentRound = rounds[i];
-				row = _.template($('#row').html(), { column1: '<a href="#" data-role="button">' + (i+1) +'</a>', 
+				row = _.template($('#row').html(), { column1: '<a href="#lekha-round/' + i + '" data-role="button">' + (i+1) +'</a>', 
 												     column2: currentRound[0], 
 													 column3: currentRound[1], 
 												     column4: currentRound[2],

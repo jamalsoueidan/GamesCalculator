@@ -21,3 +21,36 @@ li {
 #table .ui-btn-inner {
 
 }
+
+.ui-field-contain div.ui-slider {
+	width:98%;
+}
+
+input.ui-slider-input, .ui-field-contain input.ui-slider-input {
+	width:45px;
+	padding:4px;
+	margin:0px;
+}
+
+.ui-content {
+	padding: 5px 15px 15px 15px;
+}
+
+div.ui-slider { 
+	margin:5px;
+}
+
+/*div.ui-slider-bg {
+	padding-right: 0px;
+}*/
+
+body {
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+}
+
+.ui-page  {
+     -khtml-user-select: none;
+     -moz-user-select: -moz-none;
+     -webkit-user-select: none; 
+}

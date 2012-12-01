@@ -5,7 +5,8 @@ var AppRouter = Backbone.Router.extend({
 		"games":"games",
         "players":"players",
 		"lekha":'lekha',
-		'lekha-round':'lekhaRound'
+		'lekha-round':'lekhaRound',
+		'lekha-round/:id':'lekhaRound'
     },
 
     initialize:function () {
@@ -26,8 +27,8 @@ var AppRouter = Backbone.Router.extend({
 	lekha: function() {
 		this.changePage(new LekhaView());
 	},
-	lekhaRound: function() {
-		this.changePage(new LekhaRoundView());
+	lekhaRound: function(id) {
+		this.changePage(new LekhaRoundView(id));
 	},
     changePage:function (page) {
         $(page.el).attr('data-role', 'page');
