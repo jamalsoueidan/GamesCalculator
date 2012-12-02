@@ -6,7 +6,13 @@ var AppRouter = Backbone.Router.extend({
         "players":"players",
 		"lekha":'lekha',
 		'lekha-round':'lekhaRound',
-		'lekha-round/:id':'lekhaRound'
+		'lekha-round/:id':'lekhaRound',
+		"hand":"hand",
+		'hand-round':'handRound',
+		'hand-round/:id':'handRound',
+		'tarneeb':'tarneeb',
+		'tarneeb-round':'tarneebRound',
+		'tarneeb-round/:id':'tarneebRound'
     },
 
     initialize:function () {
@@ -24,11 +30,23 @@ var AppRouter = Backbone.Router.extend({
     players:function () {
         this.changePage(new PlayersView());
     },
+	tarneeb: function() {
+		this.changePage(new TarneebView());
+	},
+	tarneebRound: function(id) {
+		this.changePage(new TarneebRoundView());
+	},
 	lekha: function() {
 		this.changePage(new LekhaView());
 	},
 	lekhaRound: function(id) {
 		this.changePage(new LekhaRoundView(id));
+	},
+	hand: function(id) {
+		this.changePage(new HandView(id));
+	},
+	handRound: function(id) {
+		this.changePage(new HandRoundView(id));
 	},
     changePage:function (page) {
         $(page.el).attr('data-role', 'page');

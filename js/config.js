@@ -8,6 +8,13 @@ $(document).bind("mobileinit", function () {
     $('div[data-role="page"]').live('pagehide', function (event, ui) {
         $(event.currentTarget).remove();
     });
+
+	if ( localStorage.getItem('player1') == null ) {
+		localStorage.setItem('player1', "Right");
+		localStorage.setItem('player2', "Front");
+		localStorage.setItem('player3', "Left");
+		localStorage.setItem('player4', "Me");
+	}
 });
 
 //http://stackoverflow.com/a/6663237

@@ -1,8 +1,7 @@
-window.LekhaRoundView = Backbone.View.extend({	
-    template:_.template($('#lekha-round').html()),
+window.HandRoundView = Backbone.View.extend({	
+    template:_.template($('#hand-round').html()),
 	events: {
-		"click a#done": 'save',
-		'change input[data-type="range"]': "sliderChange"
+		"click a#done": 'save'
 	},
 	initialize: function(id) {
 		this.id = id
@@ -10,36 +9,17 @@ window.LekhaRoundView = Backbone.View.extend({
 	setup: function() {
 		if ( this.id == undefined) return;
 		
-		rounds = localStorage.getObj('lekha')
+		rounds = localStorage.getObj('hand')
 		round = rounds[this.id]
 		
 		var parent = this
 		_.each(round, function(key, value) {
 			$(parent.el).find('#player' + (value + 1) + '_slider').attr('value', key)	
-			$(parent.el).find('#player1_slider').attr('value', '12')	
 		})
-	},
-	sliderChange: function(event) {
-		// 10 + 13 + 13 = 36
-		// 20 + 13 + 13 = 46
-		// 10 + 26 + 13 = 39
-		// 20 + 26 + 13 = 59
-		
-		correct = [36, 46, 39, 59, 60]
-		num = 0;
-		for(var i=1;i<5;i++) {
-			num += parseInt($('#player'+i+'_slider').val())
-		}
-		
-		if (correct.indexOf(num)>-1) {
-			$('#done').removeClass('ui-disabled');
-		} else {
-			$('#done').addClass('ui-disabled');
-		}
 	},
 	save: function(event) {
 		event.preventDefault();
-		rounds = localStorage.getObj('lekha')
+		rounds = localStorage.getObj('hand')
 		
 		if (!Array.isArray(rounds)) {
 			rounds = [];
@@ -57,8 +37,8 @@ window.LekhaRoundView = Backbone.View.extend({
 			rounds.push(round)
 		}
 		
-		localStorage.setObj('lekha', rounds)
-		Backbone.history.navigate("#lekha", true);
+		localStorage.setObj('hand', rounds)
+		Backbone.history.navigate("#hand", true);
 	},
     render:function () {
         $(this.el).html(this.template({	player1: localStorage.getItem('player1'),
