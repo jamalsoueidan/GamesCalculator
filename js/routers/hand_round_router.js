@@ -27,9 +27,7 @@ window.HandRoundView = Backbone.View.extend({
 		
 		round = [];
 		
-		for(var i=1;i<5;i++) {
-			round.push(parseInt($("#player" + i + "_slider").val()));
-		}
+		for(var i=1;i<5;i++) round.push(parseInt($("#player" + i + "_slider").val()));
 		
 		if (this.id != undefined) {
 			rounds[this.id] = round

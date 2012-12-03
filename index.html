@@ -11,9 +11,9 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="/css/images/touch-icon-iphone4.png">
 	
     <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css"/>
+	<link rel="stylesheet" href="css/ios.css" />
     <link rel="stylesheet" href="css/add2home.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-
 	<script type="text/javascript">
 	var addToHomeConfig = {
 		touchIcon: true,
@@ -75,7 +75,6 @@
 				</ul>
 			</div>
 		</div>
-
     </script>
 
 	<script type="text/template" id="tarneeb">
@@ -207,24 +206,59 @@
 		</div>
 	
 		<div data-role="content">
-			<div data-role="fieldcontain">
-				<label for="player1"><%=player1%>:</label>
-				<input type="range" id="player1_slider" value="0" min="0" max="60" data-highlight="true" />
+			<div data-role="controlgroup" data-type="horizontal" data-group-id="player1">
+				<label for="player1" class="ui-controlgroup-label"><%=player1%>: </label>
+				<input type="radio" name="diamond" id="player1_10" value="10" />
+				<label for="player1_10">10</label>
+				<input type="radio" name="diamond" id="player1_20" value="20" />
+				<label for="player1_20">20</label>
+				<input type="radio" name="queen" id="player1_13" value="13" />
+				<label for="player1_13">13</label>
+				<input type="radio" name="queen" id="player1_26" value="26" />
+				<label for="player1_26">26</label>
 			</div>
-			<div data-role="fieldcontain">
-				<label for="player2"><%=player2%>:</label>
-				<input type="range" id="player2_slider" value="0" min="0" max="60" data-highlight="true" />
+			<input type="range" id="player1_slider" value="0" min="0" max="13" data-highlight="true" />
+			
+			<div data-role="controlgroup" data-type="horizontal" data-group-id="player2">
+				<label for="player2" class="ui-controlgroup-label"><%=player2%>: </label>
+				<input type="radio" name="diamond" id="player2_10" value="10" />
+				<label for="player2_10">10</label>
+				<input type="radio" name="diamond" id="player2_20" value="20" />
+				<label for="player2_20">20</label>
+				<input type="radio" name="queen" id="player2_13" value="13" />
+				<label for="player2_13">13</label>
+				<input type="radio" name="queen" id="player2_26" value="26" />
+				<label for="player2_26">26</label>
 			</div>
-			<div data-role="fieldcontain">
-				<label for="player3"><%=player3%>:</label>
-				<input type="range" id="player3_slider" value="0" min="0" max="60" data-highlight="true" />
+			<input type="range" id="player2_slider" value="0" min="0" max="13" data-highlight="true" />
+			
+			<div data-role="controlgroup" data-type="horizontal" data-group-id="player3">
+				<label for="player3" class="ui-controlgroup-label"><%=player3%>: </label>
+				<input type="radio" name="diamond" id="player3_10" value="10" />
+				<label for="player3_10">10</label>
+				<input type="radio" name="diamond" id="player3_20" value="20" />
+				<label for="player3_20">20</label>
+				<input type="radio" name="queen" id="player3_13" value="13" />
+				<label for="player3_13">13</label>
+				<input type="radio" name="queen" id="player3_26" value="26" />
+				<label for="player3_26">26</label>
 			</div>
-			<div data-role="fieldcontain">
-				<label for="player4"><%=player4%>:</label>
-				<input type="range" id="player4_slider" value="0" min="0" max="60" data-highlight="true" />
+			<input type="range" id="player3_slider" value="0" min="0" max="13" data-highlight="true" />
+			
+			<div data-role="controlgroup" data-type="horizontal" data-group-id="player4">
+				<label for="player4" class="ui-controlgroup-label"><%=player4%>: </label>
+				<input type="radio" name="diamond" id="player4_10" value="10" />
+				<label for="player4_10">10</label>
+				<input type="radio" name="diamond" id="player4_20" value="20" />
+				<label for="player4_20">20</label>
+				<input type="radio" name="queen" id="player4_13" value="13" />
+				<label for="player4_13">13</label>
+				<input type="radio" name="queen" id="player4_26" value="26" />
+				<label for="player4_26">26</label>
 			</div>
+			<input type="range" id="player4_slider" value="0" min="0" max="13" data-highlight="true" />
 
-			<a href="#lekha" data-role="button" id="done" class="ui-disabled">Done</a>
+			<a href="#lekha" data-role="button" id="done">Done</a>
 		</div>
 	</script>
 	
@@ -251,6 +285,24 @@
 	<script src="js/routers/tarneeb_round_router.js"></script>
     <script src="js/main.js"></script>
 	<script src="js/add2home.js"></script>
+	<style>
+		#footerTabs {
+			background: #FFF -webkit-radial-gradient(circle, #FFF, #dee2e4);
+		}
+		.ui-listview sup {
+			font-size: 0.6em;
+			color: #cc0000;
+		}
+	</style>
+	<script>
+		// all dialog buttons should close their parent dialog
+		$(".ui-dialog button").live("click", function() {		
+			$("[data-role='dialog']").dialog("close");		
+		});
+		$(document).on("mobileinit", function(){
+		  $.mobile.defaultPageTransition = "slide";
+		});
+	</script>
 </head>
 
 <body></body>

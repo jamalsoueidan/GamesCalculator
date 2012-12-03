@@ -5,6 +5,12 @@ window.LekhaView = Backbone.View.extend({
 		"click a#yes":"createNewGame"
 	},
 	initialize: function() {
+		this.rounds = localStorage.getObj('lekha')
+		
+		if (!Array.isArray(this.rounds)) {
+			localStorage.setObj('lekha', [])
+		}
+		
 		this.row = _.template($('#row').html(), {column1: '', 
 												 column2: '<strong>' + localStorage.getItem('player1') + '</strong>',
 												 column3: '<strong>' + localStorage.getItem('player2') + '</strong>',
@@ -18,6 +24,7 @@ window.LekhaView = Backbone.View.extend({
 	createNewGame: function(event) {
 		event.preventDefault();
 		localStorage.setObj('lekha', []);
+		this.rounds = localStorage.getObj('lekha')
 		this.setupTable();
 		$("#popupDialog").popup("close");
 	},
@@ -29,24 +36,45 @@ window.LekhaView = Backbone.View.extend({
     },
 	setupTable:function() {
 		$(this.el).find('ul').html(this.row);
-		rounds = localStorage.getObj('lekha')
+
 		var calculations = [0,0,0,0];
-		if (Array.isArray(rounds)) {
-			for(var i=0;i<rounds.length;i++) {
-				currentRound = rounds[i];
-				row = _.template($('#row').html(), { column1: '<a href="#lekha-round/' + i + '" data-role="button">' + (i+1) +'</a>', 
-												     column2: currentRound[0], 
-													 column3: currentRound[1], 
-												     column4: currentRound[2],
-												     column5: currentRound[3]})
-				$(this.el).find('ul').append(row);
-				for(var p=0;p<4;p++) calculations[p] += currentRound[p]
-			}
-		}
+		var parent = this
+		_.each(this.rounds, function(round, key) {
+			row = _.template($('#row').html(), { column1: '<a href="#lekha-round/' + key + '" data-role="button">' + (key+1) +'</a>', 
+											     column2: parent.calculateSum(round[0]), 
+												 column3: parent.calculateSum(round[1]), 
+											     column4: parent.calculateSum(round[2]), 
+											     column5: parent.calculateSum(round[3])}); 
+			$(parent.el).find('ul').append(row);
+			
+			calculations[0] = parent.calculateSum(round[0], 'total')
+			calculations[1] = parent.calculateSum(round[1], 'total')
+			calculations[2] = parent.calculateSum(round[2], 'total')
+			calculations[3] = parent.calculateSum(round[3], 'total')
+		})
 		
-		this.calculate(calculations);
+		this.calculateTotal(calculations);
 	},
-	calculate:function(total) {
+	calculateSum:function(roundColumn, key) {
+		if ( key == 'total' ) {
+			calculate = roundColumn.join(',').split(',')
+			total = 0
+			for(i=0;i<calculate.length;i++) 
+				total += parseInt(calculate[i])
+				
+			if (isNaN(total))
+				return 0
+			else
+				return total
+		} else {
+			value = roundColumn.join(', ').replace(/, 0/g,'')
+			if ( value == '') 
+				return 0
+			else
+				return value
+		}
+	},
+	calculateTotal:function(total) {
 		row = _.template($('#row').html(), { column1: '<strong>Total:</strong>', 
 										     column2: total[0], 
 											 column3: total[1], 

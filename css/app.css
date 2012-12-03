@@ -1,10 +1,9 @@
-ul, li {
+ul#table, ul#table li {
 	padding:0px;
 	margin:0px;
 }
 
-li {
-	border:1px solid #000;
+ul#table li {
 	list-style:none;
 	text-align:center;
 	font-size:1em;
@@ -18,18 +17,17 @@ li {
 	line-height:4px;
 }
 
-#table .ui-btn-inner {
-
+div.ui-slider {
+	width:79%;
 }
 
-.ui-field-contain div.ui-slider {
-	width:98%;
+.ui-field-contain, .ui-mobile fieldset.ui-field-contain {
+	margin:.5em 0;
 }
 
 input.ui-slider-input, .ui-field-contain input.ui-slider-input {
-	width:45px;
-	padding:4px;
-	margin:0px;
+	margin-right:10px;
+	width:26px;
 }
 
 .ui-content {

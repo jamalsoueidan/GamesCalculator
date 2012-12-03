@@ -6,58 +6,78 @@ window.LekhaRoundView = Backbone.View.extend({
 	},
 	initialize: function(id) {
 		this.id = id
+		this.rounds = localStorage.getObj('lekha')
+		
+		if ( this.id != undefined ) {
+			this.record = 'edit'
+			this.round = this.rounds[id];
+		} else {
+			this.record = 'new'
+			this.round = []
+			this.id = this.rounds.length
+		}
 	},
 	setup: function() {
-		if ( this.id == undefined) return;
-		
-		rounds = localStorage.getObj('lekha')
-		round = rounds[this.id]
-		
 		var parent = this
-		_.each(round, function(key, value) {
-			$(parent.el).find('#player' + (value + 1) + '_slider').attr('value', key)	
-			$(parent.el).find('#player1_slider').attr('value', '12')	
+		_.each(this.round, function(value, key) {
+			playerId = key+1
+			
+			for(var i=0;i<value[0].length;i++)
+				$(parent.el).find('div[data-group-id="player' + playerId + '"]').find('input[value="' + value[0][i]+ '"]').attr('checked','checked');
+
+			$(parent.el).find('#player' + + playerId + '_slider').attr('value', value[1])
 		})
 	},
 	sliderChange: function(event) {
+		this.validateSum();
+	},
+	validateSum: function() {
 		// 10 + 13 + 13 = 36
 		// 20 + 13 + 13 = 46
 		// 10 + 26 + 13 = 39
 		// 20 + 26 + 13 = 59
 		
-		correct = [36, 46, 39, 59, 60]
-		num = 0;
-		for(var i=1;i<5;i++) {
-			num += parseInt($('#player'+i+'_slider').val())
-		}
+		allowedSum = [36, 46, 39, 59, 60]
+		totalSum = 0;
 		
-		if (correct.indexOf(num)>-1) {
+		all = this.getPlayerTotal().join(',').split(',')
+		$.each(all, function(key) {
+			value = parseInt(all[key])
+			if (value > 0) {
+				totalSum += value
+			}
+		})
+
+		if (allowedSum.indexOf(totalSum)>-1) {
 			$('#done').removeClass('ui-disabled');
 		} else {
 			$('#done').addClass('ui-disabled');
 		}
+		console.log('called')
+	},
+	getPlayerTotal: function() {
+		var parent = this
+		var round = []
+		_.each([1,2,3,4], function(key) {
+			var radios = []
+			
+			$('div[data-group-id="player' + key + '"]').find('input:checked').each(function() {
+				radios.push(parseInt($(this).val()))
+			});
+			
+			var slider = parseInt($("#player" + key + "_slider").val());
+			
+			round.push([radios, slider])
+		});
+		return round	
 	},
 	save: function(event) {
 		event.preventDefault();
-		rounds = localStorage.getObj('lekha')
 		
-		if (!Array.isArray(rounds)) {
-			rounds = [];
-		}
-		
-		round = [];
-		
-		for(var i=1;i<5;i++) {
-			round.push(parseInt($("#player" + i + "_slider").val()));
-		}
-		
-		if (this.id != undefined) {
-			rounds[this.id] = round
-		} else {
-			rounds.push(round)
-		}
-		
-		localStorage.setObj('lekha', rounds)
+		 //reset the round score every time, and save from the start
+		this.round = this.getPlayerTotal();
+		this.rounds[this.id] = this.round
+		localStorage.setObj('lekha', this.rounds)
 		Backbone.history.navigate("#lekha", true);
 	},
     render:function () {
@@ -68,6 +88,9 @@ window.LekhaRoundView = Backbone.View.extend({
 										
 		this.setup();
 		
+		if ( this.record == 'new' ) {
+			$(this.el).find('#done').addClass('ui-disabled');
+		}
         return this;
     }
 });
