@@ -47,17 +47,19 @@ window.LekhaView = Backbone.View.extend({
 											     column5: parent.calculateSum(round[3])}); 
 			$(parent.el).find('ul').append(row);
 			
-			calculations[0] = parent.calculateSum(round[0], 'total')
-			calculations[1] = parent.calculateSum(round[1], 'total')
-			calculations[2] = parent.calculateSum(round[2], 'total')
-			calculations[3] = parent.calculateSum(round[3], 'total')
+			calculations[0] += parent.calculateSum(round[0], 'total')
+			calculations[1] += parent.calculateSum(round[1], 'total')
+			calculations[2] += parent.calculateSum(round[2], 'total')
+			calculations[3] += parent.calculateSum(round[3], 'total')
 		})
 		
 		this.calculateTotal(calculations);
 	},
 	calculateSum:function(roundColumn, key) {
 		if ( key == 'total' ) {
-			calculate = roundColumn.join(',').split(',')
+			replace = $.trim(roundColumn.join(' '))
+			value = replace.replace(/ /g,',')
+			calculate = value.split(',')
 			total = 0
 			for(i=0;i<calculate.length;i++) 
 				total += parseInt(calculate[i])
@@ -67,11 +69,15 @@ window.LekhaView = Backbone.View.extend({
 			else
 				return total
 		} else {
-			value = roundColumn.join(', ').replace(/, 0/g,'')
+			replace = $.trim(roundColumn.join(','))
+
+			value = replace.replace(/,0/g,'')
+			value = value.replace(/0,/g,'')
+
 			if ( value == '') 
 				return 0
 			else
-				return value
+				return value.split(',').join(', ')
 		}
 	},
 	calculateTotal:function(total) {
